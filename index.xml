@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Diego Go</title>
+    <link>https://diego-go.github.io/index.xml</link>
+    <description>Recent content on Diego Go</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-MX</language>
+    <lastBuildDate>Thu, 17 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://diego-go.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Cambiar DNS Telmex</title>
+      <link>https://diego-go.github.io/blog/2017-07-31-Cambiar-DNS-telmex/</link>
+      <pubDate>Thu, 17 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://diego-go.github.io/blog/2017-07-31-Cambiar-DNS-telmex/</guid>
+      <description>&lt;p&gt;Abrir una terminal y poner el siguiente comando para checar la dirección de nuestro gateway&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;route -n&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{site.baseurl}}/images/telmex1.png&#34; alt=&#34;telmex1.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Después entramos por telnet a esa dirección&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;telnet 192.168.1.254&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Se desplegará un login donde solicitaŕa usuario y password con el que se accesa al modem vía web.
+Una vez dentro, desplegamos la lista de los dns que están actualmente configurados para copiarlos de alguna forma por si llegaramos a necesitarlos después.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;dns server forward list&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Después se vacía la lista para borrar los dns&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;dns server forward flush&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Para configurar los DNS, utilizamos el siguiente comando, poniendo en &lt;em&gt;dns=&lt;/em&gt; la dirección DNS que querramos usar&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;dns server forward dnsset add set=0 dns=8.8.4.4 metric=10 intf=Inter net owner=PPP&lt;/code&gt;
+&lt;code&gt;dns server forward dnsset add set=0 dns=8.8.8.8 metric=10 intf=Inter net owner=PPP&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Al hacer esto, verificamos que estén en la lista los nuevos DNS con el comando de antes
+&lt;code&gt;dns server forward list&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{site.baseurl}}/images/telmex2.png&#34; alt=&#34;telmex2.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Y finalmente guardamos los cambios con &lt;code&gt;saveall&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Instalación Docker CE</title>
+      <link>https://diego-go.github.io/blog/2017-7-30-Docker-CE/</link>
+      <pubDate>Sun, 30 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://diego-go.github.io/blog/2017-7-30-Docker-CE/</guid>
+      <description>
+
+&lt;p&gt;Para instalar Docker CE (Community Edition) será necesario contar con un SO de 64 bits.&lt;/p&gt;
+
+&lt;h2 id=&#34;desinstalar-cualquier-version-anteriormente-instalada-de-docker&#34;&gt;Desinstalar cualquier version anteriormente instalada de Docker&lt;/h2&gt;
+
+&lt;p&gt;Las versiones antiguas de Docker se llamaban &lt;code&gt;docker&lt;/code&gt; o &lt;code&gt;docker-engine&lt;/code&gt;, si estas han sido instaladas,las desinstalaremos haciendo&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$ apt-get remove docker docker-engine docker.io&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;instalando-paquetes-necesarios&#34;&gt;Instalando paquetes necesarios&lt;/h2&gt;
+
+&lt;p&gt;En lo personal prefiero instalarlo desde los repositorios en lugar de descargar un paquete &lt;code&gt;.deb&lt;/code&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;instalando-el-repositorio&#34;&gt;Instalando el repositorio&lt;/h5&gt;
+
+&lt;p&gt;Primero actualizamos nuestros repositorios actuales&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$ apt-get update&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Para Debian Jessie o Stretch:&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg2 \
+    software-properties-common
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Para Wheezy:&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ apt-get install \
+     apt-transport-https \
+    ca-certificates \
+    curl \
+    python-software-properties
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Agregamos la llave GPG&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Verificamos que la llave sea &lt;code&gt;9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88.&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-key fingerprint 0EBFCD88
+
+pub   4096R/0EBFCD88 2017-02-22
+  Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid                  Docker Release (CE deb) &amp;lt;docker@docker.com&amp;gt;
+sub   4096R/F273FCD8 2017-02-22
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Añadimos el siguiente comando para agregar el repositorio estable&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo add-apt-repository \
+ &amp;quot;deb [arch=amd64] https://download.docker.com/linux/debian \
+ $(lsb_release -cs) \
+  stable&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;instalando-docker-ce&#34;&gt;Instalando Docker CE&lt;/h2&gt;
+
+&lt;p&gt;Actualizamos nuestros repositorios&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$ apt-get update&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Y finalmente instalamos Docker
+&lt;code&gt;$ apt-get install docker-ce&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;ejecutar-docker-como-usuario-normal&#34;&gt;Ejecutar Docker como usuario normal&lt;/h2&gt;
+
+&lt;p&gt;Cuando terminamos de instalar Docker, el único que puede ejecutar los comandos es el usuario &lt;em&gt;root&lt;/em&gt;, para permitir la ejecución de Docker por nosotros, debemos de agregar nuestro usuario al grupo &lt;strong&gt;&lt;em&gt;docker&lt;/em&gt;&lt;/strong&gt; haciendo lo siguiente.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Agregar el grupo docker si es que aún no lo tenemos creado, que en la mayoría de las veces ya existe&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;groupadd docker&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Agregamos a nuestro usuario al grupo Docker&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;gpasswd -a $USER docker&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;el $USER hace referencia a nuestra cuenta de usuario&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Ahora cerramos y volvemos a iniciar sesión para que los cambios surtan efecto&lt;/p&gt;
+
+&lt;h2 id=&#34;comprobando-instalación&#34;&gt;Comprobando instalación&lt;/h2&gt;
+
+&lt;p&gt;Para comprobar que ya tenemos instalado nuestro Docker, podemos ejecutar algunos comandos.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;docker version&lt;/code&gt;
+&lt;code&gt;docker info&lt;/code&gt;
+&lt;code&gt;docker run hello-world&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Instalar Fish en Debian</title>
+      <link>https://diego-go.github.io/blog/2017-7-18-Fish-Debian-8/</link>
+      <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://diego-go.github.io/blog/2017-7-18-Fish-Debian-8/</guid>
+      <description>
+
+&lt;p&gt;Se deberán agregar los siguientes repositorios con el siguiente comando&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;echo &#39;deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /&#39; &amp;gt; /etc/apt/sources.list.d/fish.list&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Descargamos la llave del repositorio para después agregarla&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;wget http://download.opensuse.org/repositories/shells:fish:release:2/Debian_8.0/Release.key&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;apt-key add - &amp;lt; Release.key&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Actualizamos los paquetes e instalamos Fish&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;apt-get update&lt;/code&gt;
+&lt;code&gt;apt-get install fish&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;instalando-oh-my-fish&#34;&gt;Instalando oh-my-fish&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;oh-myfish&lt;/strong&gt; es una extensión que hace a fish más bonito y le da un mejor toque a la terminal para que sea más productiva. Para instalarlo e instalarle cosas, en este caso temas, hay que hacer lo siguiente.&lt;/p&gt;
+
+&lt;p&gt;Nos descargamos &lt;em&gt;oh-my-fish&lt;/em&gt; con el siguiente comando e iniciará la instalación&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;curl -L https://get.oh-my.fish | fish&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;uso-de-oh-my-fish&#34;&gt;Uso de oh-my-fish&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;oh-my-fish&lt;/strong&gt; trae consigo una pequeña utilidad donde se pueden hacer varias cosas, incluyendo actualizar la extensión e instalar paquetes nuevos.&lt;/p&gt;
+
+&lt;h3 id=&#34;para-actualizar-la-misma-extensión&#34;&gt;Para actualizar la misma extensión&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;omf update [paquete a actualizar]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;instalar-paquetes&#34;&gt;Instalar paquetes&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;omf install [nombre del paquete a instalar]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;para-listar-los-paquetes-que-tenemoss-instalados&#34;&gt;Para listar los paquetes que tenemoss instalados&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;omf list&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;para-aplicar-un-tema&#34;&gt;Para aplicar un tema&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;omf theme [nombre del tema descargado]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;remove-un-paquete&#34;&gt;Remove un paquete&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;omf remove [nombre del paquete a remover]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;remover-fish&#34;&gt;Remover fish :&amp;lsquo;-(&lt;/h3&gt;
+
+&lt;h2 id=&#34;omf-destroy&#34;&gt;&lt;code&gt;omf destroy&lt;/code&gt;&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Esto es lo básico para usar, para más info y pasos &lt;a href=&#34;https://github.com/oh-my-fish/oh-my-fish&#34;&gt;su web oficial&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Proyectos</title>
+      <link>https://diego-go.github.io/projects/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://diego-go.github.io/projects/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

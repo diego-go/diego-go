@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="map[]" />
+    <meta name="description" content="Just a personal page">
+    <link rel="shortcut icon" type="image/x-icon" href="https://diego-go.github.io/img/favicon.ico">
+    <title>Instalar Fish en Debian</title>
+    <meta name="generator" content="Hugo 0.18.1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://diego-go.github.io/css/main.css" /><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/tomorrow.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://diego-go.github.io/"><i class="fa fa-home"></i></a>
+    </div>
+    <div id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/blog/">BLOG</a></li>
+        
+        <li><a href="/projects/">PROYECTOS</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="https://diego-go.github.io/blog/2017-7-18-Fish-Debian-8/">Instalar Fish en Debian</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          July 18, 2017
+            &nbsp;&nbsp;
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+<p>Se deberán agregar los siguientes repositorios con el siguiente comando</p>
+
+<p><code>echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' &gt; /etc/apt/sources.list.d/fish.list</code></p>
+
+<p>Descargamos la llave del repositorio para después agregarla</p>
+
+<p><code>wget http://download.opensuse.org/repositories/shells:fish:release:2/Debian_8.0/Release.key</code></p>
+
+<p><code>apt-key add - &lt; Release.key</code></p>
+
+<p>Actualizamos los paquetes e instalamos Fish</p>
+
+<p><code>apt-get update</code>
+<code>apt-get install fish</code></p>
+
+<h2 id="instalando-oh-my-fish">Instalando oh-my-fish</h2>
+
+<p><strong>oh-myfish</strong> es una extensión que hace a fish más bonito y le da un mejor toque a la terminal para que sea más productiva. Para instalarlo e instalarle cosas, en este caso temas, hay que hacer lo siguiente.</p>
+
+<p>Nos descargamos <em>oh-my-fish</em> con el siguiente comando e iniciará la instalación</p>
+
+<p><code>curl -L https://get.oh-my.fish | fish</code></p>
+
+<h2 id="uso-de-oh-my-fish">Uso de oh-my-fish</h2>
+
+<p><strong>oh-my-fish</strong> trae consigo una pequeña utilidad donde se pueden hacer varias cosas, incluyendo actualizar la extensión e instalar paquetes nuevos.</p>
+
+<h3 id="para-actualizar-la-misma-extensión">Para actualizar la misma extensión</h3>
+
+<p><code>omf update [paquete a actualizar]</code></p>
+
+<h3 id="instalar-paquetes">Instalar paquetes</h3>
+
+<p><code>omf install [nombre del paquete a instalar]</code></p>
+
+<h3 id="para-listar-los-paquetes-que-tenemoss-instalados">Para listar los paquetes que tenemoss instalados</h3>
+
+<p><code>omf list</code></p>
+
+<h3 id="para-aplicar-un-tema">Para aplicar un tema</h3>
+
+<p><code>omf theme [nombre del tema descargado]</code></p>
+
+<h3 id="remove-un-paquete">Remove un paquete</h3>
+
+<p><code>omf remove [nombre del paquete a remover]</code></p>
+
+<h3 id="remover-fish">Remover fish :&lsquo;-(</h3>
+
+<h2 id="omf-destroy"><code>omf destroy</code></h2>
+
+<hr />
+
+<hr />
+
+<p>Esto es lo básico para usar, para más info y pasos <a href="https://github.com/oh-my-fish/oh-my-fish">su web oficial</a></p>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://diego-go.github.io/js/docs.min.js"></script>
+<script src="https://diego-go.github.io/js/main.js"></script>
+
+<script src="https://diego-go.github.io/js/ie10-viewport-bug-workaround.js"></script><!-- Syntax highlighting -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>

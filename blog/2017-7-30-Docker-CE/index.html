@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="map[]" />
+    <meta name="description" content="Just a personal page">
+    <link rel="shortcut icon" type="image/x-icon" href="https://diego-go.github.io/img/favicon.ico">
+    <title>Instalación Docker CE</title>
+    <meta name="generator" content="Hugo 0.18.1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://diego-go.github.io/css/main.css" /><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/tomorrow.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://diego-go.github.io/"><i class="fa fa-home"></i></a>
+    </div>
+    <div id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/blog/">BLOG</a></li>
+        
+        <li><a href="/projects/">PROYECTOS</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="https://diego-go.github.io/blog/2017-7-30-Docker-CE/">Instalación Docker CE</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          July 30, 2017
+            &nbsp;&nbsp;
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+<p>Para instalar Docker CE (Community Edition) será necesario contar con un SO de 64 bits.</p>
+
+<h2 id="desinstalar-cualquier-version-anteriormente-instalada-de-docker">Desinstalar cualquier version anteriormente instalada de Docker</h2>
+
+<p>Las versiones antiguas de Docker se llamaban <code>docker</code> o <code>docker-engine</code>, si estas han sido instaladas,las desinstalaremos haciendo</p>
+
+<p><code>$ apt-get remove docker docker-engine docker.io</code></p>
+
+<h2 id="instalando-paquetes-necesarios">Instalando paquetes necesarios</h2>
+
+<p>En lo personal prefiero instalarlo desde los repositorios en lugar de descargar un paquete <code>.deb</code></p>
+
+<h5 id="instalando-el-repositorio">Instalando el repositorio</h5>
+
+<p>Primero actualizamos nuestros repositorios actuales</p>
+
+<p><code>$ apt-get update</code></p>
+
+<p><strong><em>Para Debian Jessie o Stretch:</em></strong></p>
+
+<pre><code>$ apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg2 \
+    software-properties-common
+</code></pre>
+
+<p><strong><em>Para Wheezy:</em></strong></p>
+
+<pre><code>$ apt-get install \
+     apt-transport-https \
+    ca-certificates \
+    curl \
+    python-software-properties
+</code></pre>
+
+<p><strong><em>Agregamos la llave GPG</em></strong></p>
+
+<p><code>$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -</code></p>
+
+<p>Verificamos que la llave sea <code>9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88.</code></p>
+
+<pre><code>$ sudo apt-key fingerprint 0EBFCD88
+
+pub   4096R/0EBFCD88 2017-02-22
+  Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid                  Docker Release (CE deb) &lt;docker@docker.com&gt;
+sub   4096R/F273FCD8 2017-02-22
+</code></pre>
+
+<p>Añadimos el siguiente comando para agregar el repositorio estable</p>
+
+<pre><code>$ sudo add-apt-repository \
+ &quot;deb [arch=amd64] https://download.docker.com/linux/debian \
+ $(lsb_release -cs) \
+  stable&quot;
+</code></pre>
+
+<h2 id="instalando-docker-ce">Instalando Docker CE</h2>
+
+<p>Actualizamos nuestros repositorios</p>
+
+<p><code>$ apt-get update</code></p>
+
+<p>Y finalmente instalamos Docker
+<code>$ apt-get install docker-ce</code></p>
+
+<h2 id="ejecutar-docker-como-usuario-normal">Ejecutar Docker como usuario normal</h2>
+
+<p>Cuando terminamos de instalar Docker, el único que puede ejecutar los comandos es el usuario <em>root</em>, para permitir la ejecución de Docker por nosotros, debemos de agregar nuestro usuario al grupo <strong><em>docker</em></strong> haciendo lo siguiente.</p>
+
+<p><strong><em>Agregar el grupo docker si es que aún no lo tenemos creado, que en la mayoría de las veces ya existe</em></strong></p>
+
+<p><code>groupadd docker</code></p>
+
+<p><strong><em>Agregamos a nuestro usuario al grupo Docker</em></strong></p>
+
+<p><code>gpasswd -a $USER docker</code></p>
+
+<p><em>el $USER hace referencia a nuestra cuenta de usuario</em></p>
+
+<p>Ahora cerramos y volvemos a iniciar sesión para que los cambios surtan efecto</p>
+
+<h2 id="comprobando-instalación">Comprobando instalación</h2>
+
+<p>Para comprobar que ya tenemos instalado nuestro Docker, podemos ejecutar algunos comandos.</p>
+
+<p><code>docker version</code>
+<code>docker info</code>
+<code>docker run hello-world</code></p>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://diego-go.github.io/js/docs.min.js"></script>
+<script src="https://diego-go.github.io/js/main.js"></script>
+
+<script src="https://diego-go.github.io/js/ie10-viewport-bug-workaround.js"></script><!-- Syntax highlighting -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
